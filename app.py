@@ -13,7 +13,7 @@ def recommend():
     genre = request.form['genre']
     favorite_games = request.form.getlist('favorite_games')
 
-    api_key = "114a0f357a2e4de3a4f7bc9f2bdbad74"  # Reemplaza con tu clave API
+    api_key = "TU_API_KEY_AQUI"  # Reemplaza con tu clave API
     recommended_games = []
 
     for game in favorite_games:
