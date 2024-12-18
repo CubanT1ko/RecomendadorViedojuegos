@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Recomendador de Videojuegos</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Encuentra tu videojuego ideal</h1>
+        </header>
+
+        <form action="/recommend" method="POST" class="game-form">
+            <div class="form-group">
+                <label for="platform">Plataforma:</label>
+                <select name="platform" required>
+                    <option value="PC">PC</option>
+                    <option value="PlayStation">PlayStation</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="Nintendo">Nintendo</option>
+                    <option value="Móvil">Móvil</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="genre">Género:</label>
+                <select name="genre" required>
+                    <option value="Acción">Acción</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Plataformas">Plataformas</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="favorite_games">Selecciona tus juegos favoritos:</label><br>
+                <input type="checkbox" name="favorite_games" value="Team Fortress 2"> Team Fortress 2<br>
+                <input type="checkbox" name="favorite_games" value="Dota 2"> Dota 2<br>
+                <input type="checkbox" name="favorite_games" value="Counter-Strike: Global Offensive"> Counter-Strike: Global Offensive<br>
+            </div>
+
+            <button type="submit" class="btn-submit">Recomendar Juegos</button>
+        </form>
+
+        {% if recommended %}
+            <section class="recommendations">
+                <h2>Juegos Recomendados:</h2>
+                <div class="game-cards">
+                    {% for game in recommended %}
+                        <div class="game-card">
+                            <img src="{{ game.image }}" alt="{{ game.title }} portada" class="game-image">
+                            <h3>{{ game.title }}</h3>
+                            <p>Rating: {{ game.rating }}</p>
+                            <button class="btn-expand">Detalles</button>
+                            <div class="game-details">
+                                Fecha de lanzamiento: {{ game.released }}<br />
+                                <a href="{{ game.link }}" target="_blank">Ver en RAWG</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
